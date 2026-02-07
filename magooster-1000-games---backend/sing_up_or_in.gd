@@ -27,8 +27,7 @@ func update_check():
 func update_p2(result, response_code, headers, body):
 	var usrn = OS.get_environment("USERNAME")
 	var stuff = body.get_string_from_utf8()
-	if stuff != _load("C:\\Users\\" + usrn + "\\Documents\\Magooster1000_games\\data\\update.html"):
-		install_exe()
+	install_exe()
 	_save("C:\\Users\\" + usrn + "\\Documents\\Magooster1000_games\\data\\update.html",stuff)
 
 func install_exe():
@@ -51,8 +50,26 @@ func _load(path):
 
 func _on_download_new_ver_request_completed(result, response_code, headers, body):
 	extract_all_from_zip()
+	write_zip_file()
+
+func write_zip_file():
+	var usrn = OS.get_environment("USERNAME")
+	var writer = ZIPPacker.new()
+	var err = writer.open("C:\\Users\\" + usrn + "\\Documents\\Magooster1000_games\\resources.zip")
+	if err != OK:
+		return err
+	for file in DirAccess.get_files_at("C:\\Users\\" + usrn + "\\Documents\\Magooster1000_games\\Magooster1000games-Mag-Branch\\magooster-1000-games---backend"):
+		writer.start_file(file.split("/")[file.split("/").size() - 1])
+		writer.write_file(FileAccess.get_file_as_bytes(file))
+	writer.close_file()
+#"C:\Users\magnu\Documents\Magooster1000_games\Magooster1000games-Mag-Branch\magooster-1000-games---backend"
+	writer.close()
+	#print(ProjectSettings.load_resource_pack("C:\\Users\\" + usrn + "\\Documents\\Magooster1000_games\\resources.zip",true))
+	print("Done!")
+	return OK
 
 func extract_all_from_zip():
+	
 	var usrn = OS.get_environment("USERNAME")
 	var reader = ZIPReader.new()
 	reader.open("C:\\Users\\" + usrn + "\\Documents\\Magooster1000_games\\new_ver.zip")
@@ -60,7 +77,7 @@ func extract_all_from_zip():
 	# Destination directory for the extracted files (this folder must exist before extraction).
 	# Not all ZIP archives put everything in a single root folder,
 	# which means several files/folders may be created in `root_dir` after extraction.
-	var root_dir = DirAccess.open("C:\\Users\\" + usrn + "\\Documents\\Magooster1000_games\\app\\")
+	var root_dir = DirAccess.open("C:\\Users\\" + usrn + "\\Documents\\Magooster1000_games\\")
 
 	var files = reader.get_files()
 	for file_path in files:

@@ -13,6 +13,7 @@ config_version=5
 config/name="Magooster1000 games - backend"
 run/main_scene="uid://cwlnl3iv5u1dy"
 config/features=PackedStringArray("4.6", "GL Compatibility")
+config/icon="uid://bs838bhxo1l14"
 
 [autoload]
 
