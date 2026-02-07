@@ -1,5 +1,2 @@
 # Normalize line endings for all files that Git considers text files.
 * text=auto eol=lf
-
-# Only include the addons folder when downloading from the Asset Library.
-/magooster-1000-games---backend export-ignore
