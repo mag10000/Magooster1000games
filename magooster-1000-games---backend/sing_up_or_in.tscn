@@ -2,6 +2,20 @@
 
 [ext_resource type="Script" uid="uid://drrl8ku668lt6" path="res://sing_up_or_in.gd" id="1_f6b58"]
 [ext_resource type="Texture2D" uid="uid://bs838bhxo1l14" path="res://purple_cat(1).png" id="2_2use1"]
+[ext_resource type="Script" uid="uid://cqqoa3syduqc8" path="res://login_signup_nonrelay.gd" id="2_iqfa5"]
+[ext_resource type="Script" uid="uid://iwt2mfdtjtiq" path="res://login_signup_relay.gd" id="4_7eb1m"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2use1"]
+bg_color = Color(0.29880077, 0.17851624, 0.51877004, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_blend = true
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
 
 [node name="Sing_up_or_in" type="Node2D" unique_id=435137314]
 script = ExtResource("1_f6b58")
@@ -12,7 +26,178 @@ anchors_preset = 0
 offset_right = 548.0
 offset_bottom = 648.0
 
+[node name="login_signup_nonrelay" type="ColorRect" parent="ui" unique_id=2138416763]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.29368162, 6.042816e-05, 0.2953977, 1)
+script = ExtResource("2_iqfa5")
+
+[node name="PurpleCat" type="Sprite2D" parent="ui/login_signup_nonrelay" unique_id=1697954182]
+texture_filter = 1
+position = Vector2(265.5, 138.00002)
+scale = Vector2(0.09130859, 0.087890625)
+texture = ExtResource("2_2use1")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="ui/login_signup_nonrelay" unique_id=1852288389]
+layout_mode = 0
+offset_left = 37.0
+offset_top = 241.0
+offset_right = 499.0
+offset_bottom = 277.0
+theme_override_font_sizes/bold_font_size = 24
+bbcode_enabled = true
+text = "[b]Welcome to Magooster1000 games!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ui/login_signup_nonrelay" unique_id=1193282132]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.18978103
+anchor_top = 0.4675926
+anchor_right = 0.810219
+anchor_bottom = 0.9243827
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="login" type="Button" parent="ui/login_signup_nonrelay/VBoxContainer" unique_id=1472426472]
+layout_mode = 2
+theme_override_constants/outline_size = 6
+theme_override_icons/icon = ExtResource("2_2use1")
+theme_override_styles/normal = SubResource("StyleBoxFlat_2use1")
+text = "Log In"
+expand_icon = true
+
+[node name="signup" type="Button" parent="ui/login_signup_nonrelay/VBoxContainer" unique_id=1732744210]
+layout_mode = 2
+theme_override_constants/outline_size = 6
+theme_override_icons/icon = ExtResource("2_2use1")
+theme_override_styles/normal = SubResource("StyleBoxFlat_2use1")
+text = "Sign Up"
+expand_icon = true
+
+[node name="linedits" type="VBoxContainer" parent="ui/login_signup_nonrelay/VBoxContainer" unique_id=1164102675]
+visible = false
+layout_mode = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="usrnm" type="LineEdit" parent="ui/login_signup_nonrelay/VBoxContainer/linedits" unique_id=2064901369]
+layout_mode = 2
+placeholder_text = "Username"
+
+[node name="mail" type="LineEdit" parent="ui/login_signup_nonrelay/VBoxContainer/linedits" unique_id=858069521]
+layout_mode = 2
+placeholder_text = "Email"
+
+[node name="pass" type="LineEdit" parent="ui/login_signup_nonrelay/VBoxContainer/linedits" unique_id=578631702]
+layout_mode = 2
+placeholder_text = "Password"
+secret = true
+
+[node name="Button" type="Button" parent="ui/login_signup_nonrelay/VBoxContainer/linedits" unique_id=328702334]
+layout_mode = 2
+text = "Submit"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="ui/login_signup_nonrelay/VBoxContainer/linedits" unique_id=1340563934]
+layout_mode = 2
+theme_override_colors/default_color = Color(0.89729613, 0, 0.06885859, 1)
+fit_content = true
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="login_signup_relay" type="ColorRect" parent="ui" unique_id=1197058060]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.29368162, 6.042816e-05, 0.2953977, 1)
+script = ExtResource("4_7eb1m")
+
+[node name="PurpleCat" type="Sprite2D" parent="ui/login_signup_relay" unique_id=27657591]
+texture_filter = 1
+position = Vector2(265.5, 138.00002)
+scale = Vector2(0.09130859, 0.087890625)
+texture = ExtResource("2_2use1")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="ui/login_signup_relay" unique_id=992248608]
+layout_mode = 0
+offset_left = 37.0
+offset_top = 241.0
+offset_right = 499.0
+offset_bottom = 277.0
+theme_override_font_sizes/bold_font_size = 24
+bbcode_enabled = true
+text = "[b]Sign in to "
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ui/login_signup_relay" unique_id=48467911]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.18978103
+anchor_top = 0.4675926
+anchor_right = 0.810219
+anchor_bottom = 0.9243827
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="login" type="Button" parent="ui/login_signup_relay/VBoxContainer" unique_id=2134326507]
+layout_mode = 2
+theme_override_constants/outline_size = 6
+theme_override_icons/icon = ExtResource("2_2use1")
+theme_override_styles/normal = SubResource("StyleBoxFlat_2use1")
+text = "Log In"
+expand_icon = true
+
+[node name="signup" type="Button" parent="ui/login_signup_relay/VBoxContainer" unique_id=1008377380]
+layout_mode = 2
+theme_override_constants/outline_size = 6
+theme_override_icons/icon = ExtResource("2_2use1")
+theme_override_styles/normal = SubResource("StyleBoxFlat_2use1")
+text = "Sign Up"
+expand_icon = true
+
+[node name="linedits" type="VBoxContainer" parent="ui/login_signup_relay/VBoxContainer" unique_id=640666693]
+visible = false
+layout_mode = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="usrnm" type="LineEdit" parent="ui/login_signup_relay/VBoxContainer/linedits" unique_id=1171458077]
+layout_mode = 2
+placeholder_text = "Username"
+
+[node name="mail" type="LineEdit" parent="ui/login_signup_relay/VBoxContainer/linedits" unique_id=1761981073]
+layout_mode = 2
+placeholder_text = "Email"
+
+[node name="pass" type="LineEdit" parent="ui/login_signup_relay/VBoxContainer/linedits" unique_id=971855850]
+layout_mode = 2
+placeholder_text = "Password"
+secret = true
+
+[node name="Button" type="Button" parent="ui/login_signup_relay/VBoxContainer/linedits" unique_id=1738878744]
+layout_mode = 2
+text = "Submit"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="ui/login_signup_relay/VBoxContainer/linedits" unique_id=396790091]
+layout_mode = 2
+theme_override_colors/default_color = Color(0.89729613, 0, 0.06885859, 1)
+fit_content = true
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="loading" type="Panel" parent="ui" unique_id=584045356]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -49,4 +234,11 @@ texture = ExtResource("2_2use1")
 
 [node name="download_new_ver" type="HTTPRequest" parent="." unique_id=788452874]
 
+[connection signal="pressed" from="ui/login_signup_nonrelay/VBoxContainer/login" to="ui/login_signup_nonrelay" method="_on_login_pressed"]
+[connection signal="pressed" from="ui/login_signup_nonrelay/VBoxContainer/signup" to="ui/login_signup_nonrelay" method="_on_signup_pressed"]
+[connection signal="pressed" from="ui/login_signup_nonrelay/VBoxContainer/linedits/Button" to="ui/login_signup_nonrelay" method="_on_button_pressed"]
+[connection signal="visibility_changed" from="ui/login_signup_relay" to="ui/login_signup_relay" method="_on_visibility_changed"]
+[connection signal="pressed" from="ui/login_signup_relay/VBoxContainer/login" to="ui/login_signup_relay" method="_on_login_pressed"]
+[connection signal="pressed" from="ui/login_signup_relay/VBoxContainer/signup" to="ui/login_signup_relay" method="_on_signup_pressed"]
+[connection signal="pressed" from="ui/login_signup_relay/VBoxContainer/linedits/Button" to="ui/login_signup_relay" method="_on_button_pressed"]
 [connection signal="request_completed" from="download_new_ver" to="." method="_on_download_new_ver_request_completed"]

@@ -1,6 +1,7 @@
 extends Node2D
 func _ready():
-	DisplayServer.window_set_title("magnus browser | home")
+	var usrn = OS.get_environment("USERNAME")
+	$ui/loading.show()
 	update_check()
 	#Lootlocker.logged_in.connect(logged_in)
 	#Lootlocker._white_label_login()
@@ -65,8 +66,21 @@ func write_zip_file():
 #"C:\Users\magnu\Documents\Magooster1000_games\Magooster1000games-Mag-Branch\magooster-1000-games---backend"
 	writer.close()
 	#print(ProjectSettings.load_resource_pack("C:\\Users\\" + usrn + "\\Documents\\Magooster1000_games\\resources.zip",true))
-	print("Done!")
+	done()
 	return OK
+
+
+func done():
+	var usrn = OS.get_environment("USERNAME")
+	$ui/loading.hide()
+	if FileAccess.file_exists("C:\\Users\\" + usrn + "\\Documents\\Magooster1000_games\\data\\data.dat"):
+		$ui/login_signup_relay.show()
+	else:
+		if FileAccess.file_exists("C:\\Users\\" + usrn + "\\Documents\\Magooster1000_games\\data\\auto_login.dat"):
+			DisplayServer.window_set_size(Vector2(1,1))
+		else:
+			$ui/login_signup_nonrelay.show()
+
 
 func extract_all_from_zip():
 	
@@ -93,3 +107,7 @@ func extract_all_from_zip():
 		var file = FileAccess.open(root_dir.get_current_dir().path_join(file_path), FileAccess.WRITE)
 		var buffer = reader.read_file(file_path)
 		file.store_buffer(buffer)
+
+
+func _on_login_signup_relay_visibility_changed():
+	pass # Replace with function body.

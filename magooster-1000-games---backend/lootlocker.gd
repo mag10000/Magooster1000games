@@ -1,6 +1,7 @@
 extends Node
 
 signal logged_in(data : Dictionary)
+signal error(text : String)
 
 #General Variables
 
@@ -93,7 +94,7 @@ func _guest_login_request_completed(_result, _response_code, _headers, body):
 	var json = JSON.parse_string(body.get_string_from_utf8())
 	
 	if json.has('error'):
-		push_error(json.message)
+		error.emit(json.message)
 	else:
 		var file = FileAccess.open('user://LootLockerGuest.data',FileAccess.WRITE)
 		#print(json.player_identifier)
@@ -115,7 +116,7 @@ func _white_label_auth_request_completed(_result, _response_code, _headers, body
 	var json = JSON.parse_string(body.get_string_from_utf8())
 	
 	if json.has('error'):
-		push_error(json.message)
+		error.emit(json.message)
 	else:
 		session_id = json.session_token
 		print('Authentication Succesful')
@@ -135,7 +136,7 @@ func _white_label_login_request_completed(_result, _response_code, _headers, bod
 	var json = JSON.parse_string(body.get_string_from_utf8())
 
 	if json.has('error'):
-		push_error(json.message)
+		error.emit(json.message)
 	else:
 		token = json.session_token
 		print('Succesfully logged in')
@@ -162,9 +163,9 @@ func _white_label_signup_request_completed(_result, response_code, _headers, bod
 		redirect = "OVERRIDE"
 		_white_label_login()
 	elif  json.has('error'):
-		push_error(json.message)
+		error.emit(json.message)
 	else:
-		push_error('Not an email')
+		error.emit('Not an email')
 
 func _get_player_name():
 	var headers = ['x-session-token: ' + session_id, 'LL-version: 2021-03-01', 'Content-Type: application/json']
@@ -180,12 +181,15 @@ func _get_player_name_request_completed(_result, _response_code, _headers, body)
 		log_in_data["display_name"] = player_name
 		logged_in.emit(log_in_data)
 	if json.has('error'):
-		push_error(json.message)
+		error.emit(json.message)
 
 func _set_player_name():
 	print(session_id)
 	var headers = ['x-session-token:' + session_id, 'LL-version: 2021-03-01', 'Content-Type: application/json']
 	var data = {'name': player_name}
+	log_in_data["display_name"] = player_name
+	log_in_data["email"] = email
+	logged_in.emit(log_in_data)
 
 	set_player_name_http.request('https://api.lootlocker.io/game/player/name', headers, HTTPClient.METHOD_PATCH, JSON.stringify(data))
 
@@ -193,7 +197,7 @@ func _set_player_name_request_completed(_result, _response_code, _headers, body)
 	var json = JSON.parse_string(body.get_string_from_utf8())
 	
 	if json.has('error'):
-		push_error(json.message)
+		error.emit(json.message)
 	else:
 		print(json)
 		#print('Player name set to ' + json.name)
@@ -206,7 +210,7 @@ func _get_leaderboard():
 func _get_leaderboard_request_completed(_result, _response_code, _headers, body):
 	var json = JSON.parse_string(body.get_string_from_utf8())
 	if json.has('error'):
-		push_error(json.message)
+		error.emit(json.message)
 	else:
 		print('LeaderBoard pulled form lootlocker:')
 		print(json.items)
@@ -222,4 +226,4 @@ func _submit_score_request_completed(_result, _response_code, _headers, body):
 	var json = JSON.parse_string(body.get_string_from_utf8())
 	
 	if json.has('error'):
-		push_error(json.message)
+		error.emit(json.message)
