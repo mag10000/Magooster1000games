@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://dt6xhag0njf8e"]
+
+[ext_resource type="Script" uid="uid://d4ny8jkf8aay2" path="res://taskbar.gd" id="1_8kh7g"]
+
+[node name="taskbar" type="Node2D" unique_id=2067265730]
+script = ExtResource("1_8kh7g")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1660137475]
+offset_left = -804.0
+offset_top = -309.0
+offset_right = 1046.0
+offset_bottom = 700.0
+color = Color(0.19759989, 2.8096325e-05, 0.19899067, 1)
+
+[node name="Control" type="Control" parent="." unique_id=1955316423]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 548.0
+offset_bottom = 648.0
+
+[node name="Label" type="RichTextLabel" parent="Control" unique_id=1837725202]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+bbcode_enabled = true
+text = "[b]Hi"

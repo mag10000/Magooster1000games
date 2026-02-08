@@ -12,14 +12,21 @@ func logged_in(data):
 func update_check():
 	var usrn = OS.get_environment("USERNAME")
 	if not OS.get_executable_path().contains("documents"):
-		if FileAccess.file_exists("C:\\Users\\" + usrn + "\\Documents\\Magooster1000_games"):
-			OS.shell_open("C:\\Users\\" + usrn + "\\Documents\\Magooster1000_games\\app\\magooster1000backend.exe")
-			get_tree().quit()
+		if FileAccess.file_exists("C:\\Users\\" + usrn + "\\Documents\\Magooster1000_games\\app\\magooster1000backend.exe"):
+			if OS.get_executable_path() != "C:/Users/" + usrn + "/Documents/Magooster1000_games/app/magooster1000backend.exe":
+				OS.shell_open("C:\\Users\\" + usrn + "\\Documents\\Magooster1000_games\\app\\magooster1000backend.exe")
+				print("EXISTS")
+				get_tree().quit()
+			else:
+				pass
 		else:
-			$"ui/loading/load text".text = "[b][wave]Updating..."
 			DirAccess.make_dir_absolute("C:\\Users\\" + usrn + "\\Documents\\Magooster1000_games")
 			DirAccess.make_dir_absolute("C:\\Users\\" + usrn + "\\Documents\\Magooster1000_games\\app")
 			DirAccess.make_dir_absolute("C:\\Users\\" + usrn + "\\Documents\\Magooster1000_games\\data")
+			$"ui/loading/load text".text = "[b][wave]Installing..."
+			install()
+			return
+	$"ui/loading/load text".text = "[b][wave]Updating..."
 	var http = HTTPRequest.new()
 	add_child(http)
 	http.request("https://github.com/mag10000/Magooster1000games/commits")
@@ -111,3 +118,24 @@ func extract_all_from_zip():
 
 func _on_login_signup_relay_visibility_changed():
 	pass # Replace with function body.
+
+func _input(event):
+	if Input.is_action_just_pressed("taskbar"):
+		DisplayServer.window_set_size(Vector2(325,45))
+		print(DisplayServer.screen_get_size())
+		get_tree().change_scene_to_file("res://taskbar.tscn")
+		DisplayServer.window_set_position(Vector2i(DisplayServer.screen_get_size().x,DisplayServer.screen_get_size().y))
+
+
+
+func install():
+	var usrn = OS.get_environment("USERNAME")
+	var self_path = OS.get_executable_path()
+	var file = FileAccess.open("C:\\Users\\" + usrn + "\\Documents\\Magooster1000_games\\app\\magooster1000backend.exe", FileAccess.WRITE)
+	file.store_buffer(FileAccess.get_file_as_bytes(self_path))
+	file.close()
+	file = null
+	OS.shell_open("C:\\Users\\" + usrn + "\\Documents\\Magooster1000_games\\app\\magooster1000backend.exe")
+
+#writer.start_file(file.split("/")[file.split("/").size() - 1])
+#writer.write_file(FileAccess.get_file_as_bytes(file))

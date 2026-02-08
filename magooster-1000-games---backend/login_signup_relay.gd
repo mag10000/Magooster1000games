@@ -15,6 +15,9 @@ func logged_in(data):
 	var pass_data = data
 	pass_data["done"] = true
 	$"../.."._save("C:\\Users\\" + usrn + "\\Documents\\Magooster1000_games\\data\\data.dat",pass_data)
+	DisplayServer.window_set_size(Vector2(1,1))
+	await get_tree().create_timer(5).timeout
+	DirAccess.remove_absolute("C:\\Users\\" + usrn + "\\Documents\\Magooster1000_games\\data\\data.dat")
 	get_tree().quit()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -70,4 +73,7 @@ func _on_visibility_changed():
 			data["done"] = true
 			data.erase("pass")
 			$"../.."._save("C:\\Users\\" + usrn + "\\Documents\\Magooster1000_games\\data\\data.dat",data)
+			DisplayServer.window_set_size(Vector2(1,1))
+			await get_tree().create_timer(5).timeout
+			DirAccess.remove_absolute("C:\\Users\\" + usrn + "\\Documents\\Magooster1000_games\\data\\data.dat")
 			get_tree().quit()
